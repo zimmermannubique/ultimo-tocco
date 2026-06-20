@@ -1,0 +1,51 @@
+name: build
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  windows:
+    name: Windows (VST3 + Standalone)
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure
+        run: cmake -S . -B build -G "Visual Studio 17 2022" -A x64
+
+      - name: Build
+        run: cmake --build build --config Release --parallel
+
+      - name: Upload artefacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ultimo-tocco-windows
+          path: |
+            build/MoodMixer_artefacts/Release/VST3/**
+            build/MoodMixer_artefacts/Release/Standalone/**
+          if-no-files-found: error
+
+  macos:
+    name: macOS (AU + VST3 + Standalone)
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure
+        run: cmake -S . -B build -G "Xcode"
+
+      - name: Build
+        run: cmake --build build --config Release --parallel
+
+      - name: Upload artefacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ultimo-tocco-macos
+          path: |
+            build/MoodMixer_artefacts/Release/AU/**
+            build/MoodMixer_artefacts/Release/VST3/**
+            build/MoodMixer_artefacts/Release/Standalone/**
+          if-no-files-found: error

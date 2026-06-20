@@ -1,0 +1,15 @@
+# Build output
+build/
+cmake-build-*/
+
+# Projucer-generated (we build with CMake; JUCE is fetched in CI)
+Builds/
+JuceLibraryCode/
+
+# macOS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+*.xcodeproj
