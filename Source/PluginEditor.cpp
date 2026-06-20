@@ -5,7 +5,7 @@ namespace
 {
     constexpr int   kMaxFrames   = 60;   // upper bound when scanning for frames
     constexpr int   kEditorW     = 460;
-    constexpr int   kEditorH     = 660;
+    constexpr int   kEditorH     = 600;
     constexpr int   kKnobSize    = 210;
 
     // Where the face peaks (happiest). Reach it early, then a long slide into doubt.
@@ -230,23 +230,15 @@ void MoodMixerAudioProcessorEditor::paint (juce::Graphics& g)
     {
         auto captionArea = juce::Rectangle<int> (bounds.getX(), imageArea.getBottom() + 6,
                                                  bounds.getWidth(), 28);
-        const juce::String caption = mood < 0.18f ? "hmm, it's missing something..."
-                                   : mood < 0.40f ? "perfect. that's the one."
-                                   : mood < 0.70f ? "...wait, is that a bit much?"
+        const juce::String caption = mood < 0.28f ? "hmm, it's missing something?"
+                                   : mood < 0.52f ? "perfect. that's the one."
+                                   : mood < 0.76f ? "...wait, is that a bit much?"
                                                   : "are you sure about this?";
         g.setColour (kTextDim);
         g.setFont (juce::FontOptions (14.0f));
         g.drawText (caption, captionArea, juce::Justification::centred, false);
     }
 
-    // Label under the knob — the actual dB change stays hidden on purpose.
-    {
-        auto readout = juce::Rectangle<int> (bounds.getX(), getHeight() - 56,
-                                             bounds.getWidth(), 40);
-        g.setColour (kTextDim);
-        g.setFont (juce::FontOptions (11.0f));
-        g.drawText ("output trim", readout, juce::Justification::centred, false);
-    }
 }
 
 void MoodMixerAudioProcessorEditor::resized()
