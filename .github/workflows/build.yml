@@ -9,7 +9,9 @@ on:
 jobs:
   windows:
     name: Windows (VST3 + Standalone)
-    runs-on: windows-latest
+    # Pinned: windows-latest moved to VS 2026 (June 2026); 2022 is a known-good
+    # match for JUCE 8.0.13. Bump to windows-latest + "Visual Studio 18 2026" later.
+    runs-on: windows-2022
     steps:
       - uses: actions/checkout@v4
 
