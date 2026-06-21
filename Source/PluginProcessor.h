@@ -52,19 +52,19 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
 
     //==============================================================================
-    // Gain stays tiny throughout. The curve is intentionally non-linear:
-    //   knob 0.0 -> 0.00 dB   (no change)
-    //   knob 0.5 -> 0.00 dB   ("perfect" – happiest picture, yet zero actual change)
-    //   knob 1.0 -> +0.25 dB  (past the sweet spot – the face starts doubting)
-    static constexpr float midBoostDb = 0.00f;
-    static constexpr float maxBoostDb = 0.25f;
+    // Flat 0 dB until the "Perfekt. Genau so." zone, then linear up to the end:
+    //   knob 0.00 .. 0.28 -> 0.00 dB
+    //   knob 0.28          -> 0.00 dB   (start of the ramp)
+    //   knob 1.00          -> +0.50 dB
+    static constexpr float maxBoostDb    = 0.50f;
+    static constexpr float gainStartMood = 0.28f;
 
-    // Piecewise-linear mapping from the mood knob [0,1] to a gain in decibels.
     static float moodToGainDb (float mood) noexcept
     {
         mood = juce::jlimit (0.0f, 1.0f, mood);
-        return mood <= 0.5f ? juce::jmap (mood, 0.0f, 0.5f, 0.0f,        midBoostDb)
-                            : juce::jmap (mood, 0.5f, 1.0f, midBoostDb, maxBoostDb);
+        if (mood <= gainStartMood)
+            return 0.0f;
+        return juce::jmap (mood, gainStartMood, 1.0f, 0.0f, maxBoostDb);
     }
 
     juce::AudioProcessorValueTreeState apvts;

@@ -231,8 +231,8 @@ void MoodMixerAudioProcessorEditor::paint (juce::Graphics& g)
         auto captionArea = juce::Rectangle<int> (bounds.getX(), imageArea.getBottom() + 6,
                                                  bounds.getWidth(), 28);
         const juce::String caption = mood < 0.28f ? "Fehlt da noch was?"
-                                   : mood < 0.52f ? "Perfekt. Genau so."
-                                   : mood < 0.76f ? "Nicht etwas viel?"
+                                   : mood < 0.45f ? "Perfekt. Genau so."
+                                   : mood < 0.75f ? "Nicht etwas viel?"
                                                   : "Bist du dir sicher?";
         g.setColour (kTextDim);
         g.setFont (juce::FontOptions (14.0f));
