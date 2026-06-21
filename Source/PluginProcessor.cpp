@@ -25,7 +25,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout MoodMixerAudioProcessor::cre
 
     layout.add (std::make_unique<juce::AudioParameterFloat> (
         juce::ParameterID { kMoodParamId, 1 },
-        "Mood",
+        "Stimmung",
         juce::NormalisableRange<float> (0.0f, 1.0f, 0.0001f),
         0.0f,
         juce::AudioParameterFloatAttributes()

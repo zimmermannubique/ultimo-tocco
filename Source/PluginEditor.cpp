@@ -186,7 +186,7 @@ void MoodMixerAudioProcessorEditor::paint (juce::Graphics& g)
     // Italian tagline on the right, vertically centred.
     g.setColour (kTextDim);
     g.setFont (juce::FontOptions (10.5f, juce::Font::italic));
-    g.drawText ("the last plugin in your chain...", header,
+    g.drawText ("das letzte Plugin in deiner Kette...", header,
                 juce::Justification::centredRight, false);
 
     auto titleArea = header;
@@ -219,7 +219,7 @@ void MoodMixerAudioProcessorEditor::paint (juce::Graphics& g)
         else
         {
             g.setColour (kTextDim);
-            g.drawText ("no image", panel, juce::Justification::centred, false);
+            g.drawText ("kein Bild", panel, juce::Justification::centred, false);
         }
 
         g.setColour (kBackground.brighter (0.08f));
@@ -230,10 +230,10 @@ void MoodMixerAudioProcessorEditor::paint (juce::Graphics& g)
     {
         auto captionArea = juce::Rectangle<int> (bounds.getX(), imageArea.getBottom() + 6,
                                                  bounds.getWidth(), 28);
-        const juce::String caption = mood < 0.28f ? "hmm, it's missing something?"
-                                   : mood < 0.52f ? "perfect. that's the one."
-                                   : mood < 0.76f ? "...wait, is that a bit much?"
-                                                  : "are you sure about this?";
+        const juce::String caption = mood < 0.28f ? "Fehlt da noch was?"
+                                   : mood < 0.52f ? "Perfekt. Genau so."
+                                   : mood < 0.76f ? "Nicht etwas viel?"
+                                                  : "Bist du dir sicher?";
         g.setColour (kTextDim);
         g.setFont (juce::FontOptions (14.0f));
         g.drawText (caption, captionArea, juce::Justification::centred, false);
